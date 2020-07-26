@@ -8,10 +8,16 @@ import ru.javawebinar.topjava.repository.UserRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class InMemoryUserRepository implements UserRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepository.class);
+
+    private Map<Integer, User> repository = new ConcurrentHashMap<>();
+    private AtomicInteger id = new AtomicInteger(0);
 
     @Override
     public boolean delete(int id) {
